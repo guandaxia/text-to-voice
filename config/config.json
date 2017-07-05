@@ -1,0 +1,18 @@
+{
+  "path": "C:\\Users\\administere\\Desktop",
+  "baidu": {
+    "grant_type": "client_credentials",
+    "client_id": "your client id",
+    "client_secret": "your client secret"
+  },
+  "set_info": {
+    "spd": "4",
+    "pit": "6",
+    "vol": "5",
+    "per": "1"
+  },
+  "access_token_info": {
+    "access_token": "24.a0b819c41bbcaadb96dffd88503a1d2a.2592000.1501821855.282335-4552311",
+    "timestamp": 1499229855000
+  }
+}

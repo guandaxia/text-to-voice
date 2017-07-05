@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="http://usewing.ml/dist/wing.css" />
+    <link rel="stylesheet" href="./css/common.css">
+    <title>设置</title>
+</head>
+
+<body>
+    <div class="wrap">
+        <h1 class="center">设置</h1>
+        <div class="row">
+            <div class="col">
+                <label>语速</label>
+                <select name="spd" id="spd">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5" selected>5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                </select>
+            </div>
+            <div class="col">
+                <label>音调</label>
+                <select name="pit" id="pit">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5" selected>5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                </select>
+            </div>
+            <div class="col">
+                <label>音量</label>
+                <select name="vol" id="vol">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5" selected>5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                </select>
+            </div>
+            <div class="col">
+                <label>发音人</label>
+                <select name="per" id="per">
+                    <option value="0">女声</option>
+                    <option value="1">男声</option>
+                    <option value="3">情感合成-度逍遥</option>
+                    <option value="4">情感合成-度丫丫</option>
+                </select>
+            </div>
+        </div>
+        <div class="row"></div>
+        <div class="row">
+            <div class="col-10 vertical-align" id="path">保存的路径为：</div>
+            <div class="col-2">
+                <button id="select-dialog">更改</button>
+            </div>
+        </div>
+        <button id="save" class="confirm">确定</button>
+    </div>
+</body>
+<script>
+    const configuration = require('../configuration')
+    const {
+        dialog
+    } = require('electron').remote
+    const ipcRenderer = require('electron').ipcRenderer
+
+    let setInfo, spd, pit, vol, per, path
+    setInfo = configuration.readSettings('set_info')
+    if (setInfo) {
+        spd = setInfo.spd
+        pit = setInfo.pit
+        vol = setInfo.vol
+        per = setInfo.per
+    }
+
+    path = configuration.readSettings('path') || ''
+
+    let spdElement, pitElement, volElment, perElment, pathElement
+    spdElement = document.getElementById('spd')
+    pitElement = document.getElementById('pit')
+    volElement = document.getElementById('vol')
+    perElement = document.getElementById('per')
+    pathElement = document.getElementById('path')
+
+    spdElement.value = spd
+    pitElement.value = pit
+    volElement.value = vol
+    perElement.value = per
+
+    pathElement.innerHTML = path
+
+    document.getElementById('select-dialog').onclick = function () {
+
+        path = dialog.showOpenDialog({
+            properties: ['openDirectory']
+        })
+
+        pathElement.innerHTML = path
+    }
+
+    document.getElementById('save').onclick = function () {
+        console.log('button click')
+        setInfo = {
+            'spd': spdElement.value,
+            'pit': pitElement.value,
+            'vol': volElement.value,
+            'per': perElement.value
+        }
+        configuration.saveSettings('set_info', setInfo)
+        configuration.saveSettings('path', path[0])
+
+        alert('设置成功')
+        ipcRenderer.send('close-setting')
+    }
+</script>
+
+</html>

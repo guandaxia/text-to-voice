@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>语音合成</title>
+    <link rel="stylesheet" href="http://usewing.ml/dist/wing.css" />
+    <link rel="stylesheet" href="./css/common.css">
+</head>
+
+<body>
+    <div class="wrap">
+        <h1 class="center">语音合成</h1>
+        <div class="row">
+            <label>文字</label>
+            <textarea id="text" rows="10" placeholder="要合成的文字，多个可用回车分隔" style="font-size:16px; min-height: 30rem;"></textarea>
+        </div>
+        <button id="compose" class="confirm">确定</button>
+        <button id="setting" class="confirm">设置</button>
+
+    </div>
+</body>
+<script>
+    // You can also require other files to run in this process
+    require('../renderer.js')
+    const utils = require('./js/utils')
+    const ipcRenderer = require('electron').ipcRenderer
+    const pinyin = require('pinyin')
+
+    document.getElementById('compose').onclick = function () {
+
+        let text = document.getElementById('text').value
+        let textArray = text.split('\n')
+        let url, filename, funArr = []
+        for (let key in textArray) {
+            console.log(textArray[key])
+            funArr.push(dowload(textArray[key]))
+        }
+        Promise.all(funArr).then(function (value) {
+            console.log(value)
+            alert('转换完成')
+        })
+        ipcRenderer.on('download-state', function (event, args) {
+            console.log(args)
+        })
+
+        //生成请求链接
+        function dowload(text) {
+            return new Promise(function (resolve, reject) {
+                utils.getAccessToken().then(function (accessToken) {
+                    url = utils.compose(accessToken, text)
+                    console.log(url)
+                    //发送下载消息，主进程开始下载
+                    ipcRenderer.send('download', url)
+                    resolve(text)
+                })
+            })
+        }
+
+    }
+
+    document.getElementById('setting').onclick = function () {
+        console.log('info')
+        ipcRenderer.send('open-setting')
+    }
+</script>
+
+</html>

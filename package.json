@@ -1,0 +1,24 @@
+{
+  "name": "text-to-voice",
+  "version": "1.0.0",
+  "description": "A minimal Electron application for text convert voice",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/guandaxia/text-to-voice",
+  "keywords": [
+    "Electron",
+    "voice",
+    "yuyin"
+  ],
+  "author": "guandaxia",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "~1.6.2"
+  },
+  "dependencies": {
+    "nconf": "^0.8.4",
+    "pinyin": "^2.8.3"
+  }
+}
