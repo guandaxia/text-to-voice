@@ -31,7 +31,7 @@ function createWindow () {
   Menu.setApplicationMenu(null)
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
 
   let child
 
