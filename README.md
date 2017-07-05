@@ -2,8 +2,8 @@
 使用electron
 
 
-![image](https://github.com/guandaxia/text-to-voice/master/screenshot/main.jpg)
+![image](https://github.com/guandaxia/text-to-voice/blob/master/screenshot/main.jpg)
 主界面
 
-![image](https://github.com/guandaxia/text-to-voice/master/screenshot/setting.jpg)
+![image](https://github.com/guandaxia/text-to-voice/blob/master/screenshot/setting.jpg)
 设置界面
