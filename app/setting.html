@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="http://usewing.ml/dist/wing.css" />
     <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/sweetalert.css">
     <title>设置</title>
 </head>
 
@@ -76,12 +77,14 @@
         <button id="save" class="confirm">确定</button>
     </div>
 </body>
+<script src="./js/sweetalert.min.js"></script>
 <script>
     const configuration = require('../configuration')
     const {
         dialog
     } = require('electron').remote
     const ipcRenderer = require('electron').ipcRenderer
+    const swal = require('sweetalert')
 
     let setInfo, spd, pit, vol, per, path
     setInfo = configuration.readSettings('set_info')
@@ -128,8 +131,19 @@
         configuration.saveSettings('set_info', setInfo)
         configuration.saveSettings('path', path[0])
 
-        alert('设置成功')
-        ipcRenderer.send('close-setting')
+        swal({
+                title: "设置成功",
+                type: "success",
+                showCancelButton: false,
+                confirmButtonColor: "#A5DC86",
+                confirmButtonText: "确定",
+                closeOnConfirm: false,
+            },
+            function (isConfirm) {
+                if (isConfirm) {
+                    ipcRenderer.send('close-setting')
+                }
+            });
     }
 </script>
 

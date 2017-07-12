@@ -6,6 +6,7 @@
     <title>语音合成</title>
     <link rel="stylesheet" href="http://usewing.ml/dist/wing.css" />
     <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/sweetalert.css">
 </head>
 
 <body>
@@ -20,6 +21,7 @@
 
     </div>
 </body>
+<script src="./js/sweetalert.min.js"></script>
 <script>
     // You can also require other files to run in this process
     require('../renderer.js')
@@ -30,6 +32,19 @@
     document.getElementById('compose').onclick = function () {
 
         let text = document.getElementById('text').value
+        console.log(text)
+        if (text == null || text == undefined || text == "") {
+            swal({
+                title: "请输入要转换的文字",
+                type: "error",
+                showCancelButton: false,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定",
+                closeOnConfirm: false,
+            })
+            return
+        }
+
         let textArray = text.split('\n')
         let url, filename, funArr = []
         for (let key in textArray) {
@@ -38,7 +53,11 @@
         }
         Promise.all(funArr).then(function (value) {
             console.log(value)
-            alert('转换完成')
+            swal({
+                title: "转换完成",
+                timer: 3000,
+                showConfirmButton: true
+            });
         })
         ipcRenderer.on('download-state', function (event, args) {
             console.log(args)
