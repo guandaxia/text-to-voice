@@ -17,6 +17,7 @@
             <textarea id="text" rows="10" placeholder="要合成的文字，多个可用回车分隔" style="font-size:16px; min-height: 30rem;"></textarea>
         </div>
         <button id="compose" class="confirm">确定</button>
+        <button id="clear" class="confirm">清空</button>
         <button id="setting" class="confirm">设置</button>
 
     </div>
@@ -28,6 +29,10 @@
     const utils = require('./js/utils')
     const ipcRenderer = require('electron').ipcRenderer
     const pinyin = require('pinyin')
+
+    document.getElementById('clear').onclick = function () {
+        document.getElementById('text').value = ''
+    }
 
     document.getElementById('compose').onclick = function () {
 
