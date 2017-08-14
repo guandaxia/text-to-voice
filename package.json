@@ -1,10 +1,18 @@
 {
   "name": "text-to-voice",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A minimal Electron application for text convert voice",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder --win --x64"
+  },
+  "build": {
+    "appId": "com.guansixu.texttovoice",
+    "mac": {
+      "category": "your.app.category.type"
+    }
   },
   "repository": "https://github.com/guandaxia/text-to-voice",
   "keywords": [
@@ -15,9 +23,11 @@
   "author": "guandaxia",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "~1.6.2"
+    "electron": "~1.6.2",
+    "electron-builder": "^19.19.1"
   },
   "dependencies": {
+    "axios": "^0.16.2",
     "nconf": "^0.8.4",
     "pinyin": "^2.8.3"
   }
