@@ -9,12 +9,16 @@ const Menu = electron.Menu
 const path = require('path')
 const url = require('url')
 const { ipcMain } = require('electron')
-const configuration = require('./configuration')
+const configuration = require('./app/js/configuration')
 const utils = require('./app/js/utils')
+
+const config = require('./config/config.json')
+const fs = require('fs')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
+let userHome = app.getPath('home')
 
 function createWindow () {
   // Create the browser window.
@@ -32,6 +36,21 @@ function createWindow () {
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
+
+  let configPath = path.join(userHome, 'text-to-voice-config.json')
+  // 检测配置文件是否存在
+  fs.access(configPath, fs.constants.F_OK, function (err) {
+    if (err) {
+      // 文件不存在，创建配置文件
+      fs.writeFile(configPath, JSON.stringify(config), function (writeErr) {
+        if (writeErr) {
+          console.log('写文件操作失败')
+        } else {
+          console.log('写文件操作成功')
+        }
+      })
+    }
+  })
 
   let child
 

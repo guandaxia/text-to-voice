@@ -79,12 +79,11 @@
 </body>
 <script src="./js/sweetalert.min.js"></script>
 <script>
-    const configuration = require('../configuration')
+    const configuration = require('./js/configuration')
     const {
         dialog
     } = require('electron').remote
     const ipcRenderer = require('electron').ipcRenderer
-    const swal = require('sweetalert')
 
     let setInfo, spd, pit, vol, per, path
     setInfo = configuration.readSettings('set_info')

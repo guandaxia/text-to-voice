@@ -1,9 +1,10 @@
 'use strict'
-const configuration = require('../../configuration')
+const configuration = require('./configuration')
 const qs = require('querystring')
 const axios = require('axios')
 const { URL } = require('url')
 const pinyin = require('pinyin')
+const baiduConfig = require('../../config/baidu')
 
 function compose (accessToken, text) {
   let setInfo
@@ -32,7 +33,7 @@ function compose (accessToken, text) {
 // 获取accesstoken
 function getAccessToken () {
   return new Promise(function (resolve, reject) {
-    let accessToken, accessTokenInfo, baiduParam
+    let accessToken, accessTokenInfo
 
     let timestamp = Date.parse(new Date())
     console.log(timestamp)
@@ -45,9 +46,8 @@ function getAccessToken () {
     }
 
     let url = 'https://openapi.baidu.com/oauth/2.0/token?'
-    baiduParam = configuration.readSettings('baidu')
-    console.log(baiduParam)
-    url = url + qs.stringify(baiduParam)
+    console.log(baiduConfig)
+    url = url + qs.stringify(baiduConfig)
     console.log(url)
     axios.get(url)
       .then(function (res) {

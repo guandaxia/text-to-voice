@@ -2,8 +2,10 @@
 
 let path = require('path')
 
+let userHome = getUserHome()
+
 let nconf = require('nconf').file({
-  file: path.join(__dirname, '/config/config.json')
+  file: path.join(userHome, 'text-to-voice-config.json')
 })
 
 function saveSettings (settingKey, settingValue) {
@@ -16,9 +18,9 @@ function readSettings (settingKey) {
   return nconf.get(settingKey)
 }
 
-// function getUserHome () {
-//   return process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME']
-// }
+function getUserHome () {
+  return process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME']
+}
 
 module.exports = {
   saveSettings: saveSettings,
