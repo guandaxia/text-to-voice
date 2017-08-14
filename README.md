@@ -7,3 +7,18 @@
 
 ![image](https://github.com/guandaxia/text-to-voice/blob/master/screenshot/setting.jpg)
 设置界面
+
+----
+
+### 测试
+
+1. npm install
+
+2. npm run start
+
+### 打包
+1. npm install
+
+2. npm run dist
+
+3. 打包完成之后在项目的根目录下的dist文件夹下可以找到安装包
