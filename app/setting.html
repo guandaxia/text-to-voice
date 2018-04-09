@@ -115,7 +115,7 @@
         path = dialog.showOpenDialog({
             properties: ['openDirectory']
         })
-
+        configuration.saveSettings('path', path[0])
         pathElement.innerHTML = path
     }
 
@@ -128,7 +128,6 @@
             'per': perElement.value
         }
         configuration.saveSettings('set_info', setInfo)
-        configuration.saveSettings('path', path[0])
 
         swal({
                 title: "设置成功",
