@@ -1,6 +1,6 @@
 {
     "name": "text-to-voice",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "description": "A minimal Electron application for text convert voice",
     "main": "main.js",
     "scripts": {
@@ -24,7 +24,7 @@
     "author": "guandaxia",
     "license": "CC0-1.0",
     "devDependencies": {
-        "electron": "~1.6.2",
+        "electron": "~1.8.2-beta5",
         "electron-builder": "^19.19.1"
     },
     "dependencies": {
